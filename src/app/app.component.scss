@@ -1,0 +1,7 @@
+.folders-wrapper {
+  cursor: grab;
+  user-select: none;
+  &.dragging {
+    cursor: grabbing;
+  }
+}

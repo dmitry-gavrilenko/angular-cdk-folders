@@ -1,0 +1,8 @@
+<div class="folders-wrapper" [ngClass]="{dragging: isDragging}">
+  <folders [item]="parentItem"
+           [connectedDropListsIds]="connectedDropListsIds"
+           (itemDrop)="onDragDrop($event)"
+           (itemDragStart)="isDragging=true"
+           (itemDragEnd)="isDragging=false">
+  </folders>
+</div>

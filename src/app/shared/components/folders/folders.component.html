@@ -1,0 +1,52 @@
+<div cdkDropList
+     class="item-dropzone parent"
+     [id]="parentItemId"
+     [cdkDropListData]="parentItem"
+     [cdkDropListConnectedTo]="allDropListsIds"
+     (cdkDropListDropped)="onDragDrop($event)">
+
+  <div cdkDropList
+       class="item-dropzone"
+       [id]="item.uId"
+       [cdkDropListConnectedTo]="connectedDropListsIds"
+       [cdkDropListData]="item"
+       (cdkDropListDropped)="onDragDrop($event)">
+  </div>
+  <div cdkDrag
+       class="draggable-item"
+       [id]="item.uId"
+       [cdkDragData]="item"
+       [cdkDragDisabled]="dragDisabled"
+       (cdkDragStarted)="onDragStarted()"
+       (cdkDragEnded)="onDragEnded()">
+    <div title="Drag this item with children"
+         class="item-drag-handle"
+         cdkDragHandle>
+      {{item.name}}
+      <i *ngIf="!dragDisabled"
+         class="material-icons folder">
+        folder
+      </i>
+      <i *ngIf="!dragDisabled"
+         class="material-icons folder_open">
+        folder_open
+      </i>
+    </div>
+    <div class="item-drag-preview"
+         *cdkDragPreview>
+      <i class="material-icons folder">
+        folder
+      </i>
+      {{item.name}} with {{item.children?.length}} child item(s)
+    </div>
+  </div>
+  <div class="sub-folder"  *ngFor="let subItem of item.children">
+    <folders [item]="subItem"
+             [parentItem]="item"
+             [connectedDropListsIds]="allDropListsIds"
+             (itemDrop)="onDragDrop($event)"
+             (itemDragStart)="onDragStarted()"
+             (itemDragEnd)="onDragEnded()">
+    </folders>
+  </div>
+</div>
